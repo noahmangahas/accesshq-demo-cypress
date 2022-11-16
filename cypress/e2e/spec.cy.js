@@ -3,16 +3,15 @@ describe('Testing the ACME System 1 web application', () => {
     cy.visit('https://acme-test.uipath.com/login')
 
     cy.get('#email')
-      .type('noah.mangahas@accesshq.com')
+      .type(Cypress.env('username'))
     cy.get('#password')
-      .type('testpassword')
+      .type(Cypress.env('password'), {log: false})
     cy.get('button').contains('Login').click()
     
     cy.url().should('include', 'https://acme-test.uipath.com/home')
   })
 
   it('Navigate to Work Items', () => {
-    cy.visit('https://acme-test.uipath.com')
     cy.get('button')
       .contains('Work Items').click()
 
@@ -20,8 +19,8 @@ describe('Testing the ACME System 1 web application', () => {
   })
 
   it('Searches for invoice', () => {
-    cy.visit('https://acme-test.uipath.com')
-    cy.get('.fa-file-invoice').click()
+    cy.get('button')
+      .contains('Invoices').click()
   
     cy.get('.rightMenu').contains('Search for Invoice').click({force: true})
     cy.get('#invoiceNumber')
@@ -32,8 +31,8 @@ describe('Testing the ACME System 1 web application', () => {
   })
 
   it('Receive a Customer Service call', () => {
-    cy.visit('https://acme-test.uipath.com')
-    cy.get('.fa-phone-alt').click()
+    cy.get('button')
+      .contains('Customer Service').click()
   
     cy.get('#answer-call-button').should('be.disabled')
 
@@ -47,8 +46,8 @@ describe('Testing the ACME System 1 web application', () => {
   })
 
   it('Get the correct employee from list', () => {
-    cy.visit('https://acme-test.uipath.com')
-    cy.get('.fa-user-ninja').click()
+    cy.get('button')
+      .contains('Employees').click()
     
     cy.get('.modal-content').find('div[id=candidateName]').then($employeeName => {
       let name = $employeeName.text()

@@ -25,9 +25,5 @@ before(() => {
 
 afterEach(() => {
     Cypress.Cookies.preserveOnce('acme_system_1_session')
+    cy.visit('https://acme-test.uipath.com')
 })
-
-// after(() => {
-//     cy.get('a').contains('Log Out').click()
-//     cy.clearCookies()
-// })
